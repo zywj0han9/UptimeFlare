@@ -2,13 +2,13 @@ import { MaintenanceConfig, PageConfig, WorkerConfig } from './types/config'
 
 const pageConfig: PageConfig = {
   // Title for your status page
-  title: "lyc8503's Status Page",
+  title: "J0han9's Status Page",
   // Links shown at the header of your status page, could set `highlight` to `true`
-  links: [
-    { link: 'https://github.com/lyc8503', label: 'GitHub' },
-    { link: 'https://blog.lyc8503.net/', label: 'Blog' },
-    { link: 'mailto:me@lyc8503.net', label: 'Email Me', highlight: true },
-  ],
+  //links: [
+  //  { link: 'https://github.com/lyc8503', label: 'GitHub' },
+  //  { link: 'https://blog.lyc8503.net/', label: 'Blog' },
+  //  { link: 'mailto:me@lyc8503.net', label: 'Email Me', highlight: true },
+  //],
   // [OPTIONAL] Group your monitors
   // If not specified, all monitors will be shown in a single list
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
