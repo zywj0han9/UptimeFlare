@@ -13,8 +13,8 @@ const pageConfig: PageConfig = {
   // If not specified, all monitors will be shown in a single list
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
   group: {
-    '🌐 Public (example group name)': ['foo_monitor', 'bar_monitor', 'more monitor ids...'],
-    '🔐 Private': ['test_tcp_monitor'],
+    '🌐 Public (example group name)': ['git_proxy', 'docker_proxy', 'libtv'],
+    '🔐 Private': ['GenimiAPI', 'Blog', 'tmpMail', 'Imgbed', 'Fileshare'],
   },
 }
 
@@ -117,6 +117,39 @@ const workerConfig: WorkerConfig = {
       target: 'https://file.c0despace.uk/',
       tooltip: 'My file share',
       statusPageLink: 'https://file.c0despace.uk/',
+      timeout: 5000,
+    },
+    {
+      id: 'git_proxy',
+      name: 'My github proxy build on cloudflare',
+      // `method` should be `TCP_PING` for tcp monitors
+      method: 'POST',
+      // `target` should be `host:port` for tcp monitors
+      target: 'https://git.c0despace.uk/',
+      tooltip: 'My github proxy',
+      statusPageLink: 'https://git.c0despace.uk/',
+      timeout: 5000,
+    },
+    {
+      id: 'libtv',
+      name: 'My libtv build on cloudflare',
+      // `method` should be `TCP_PING` for tcp monitors
+      method: 'POST',
+      // `target` should be `host:port` for tcp monitors
+      target: 'https://tv.c0despace.uk/',
+      tooltip: 'My libtv',
+      statusPageLink: 'https://tv.c0despace.uk/',
+      timeout: 5000,
+    },
+    {
+      id: 'docker_proxy',
+      name: 'My docker proxy build on cloudflare',
+      // `method` should be `TCP_PING` for tcp monitors
+      method: 'POST',
+      // `target` should be `host:port` for tcp monitors
+      target: 'https://docker.c0despace.uk/',
+      tooltip: 'My docker proxy',
+      statusPageLink: 'https://docker.c0despace.uk/',
       timeout: 5000,
     },
   ],
