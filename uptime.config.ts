@@ -13,7 +13,7 @@ const pageConfig: PageConfig = {
   // If not specified, all monitors will be shown in a single list
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
   group: {
-    '🌐 Public (example group name)': ['git_proxy', 'docker_proxy', 'libtv'],
+    '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
     '🔐 Private': ['GenimiAPI', 'Blog', 'tmpMail', 'Imgbed', 'Fileshare'],
   },
 }
@@ -67,9 +67,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'GenimiAPI',
       name: 'Genimi API Balance Monitor',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://genimiapi.c0despace.uk',
       tooltip: 'My Genimi-balance',
       statusPageLink: 'https://genimiapi.c0despace.uk',
@@ -81,9 +79,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'Blog',
       name: 'My Blog build on Github',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://zywj0han9.github.io/',
       tooltip: 'My Blog',
       statusPageLink: 'https://zywj0han9.github.io/',
@@ -95,9 +91,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'tmpMail',
       name: 'My tmp email build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://tmpmail.c0despace.uk/',
       tooltip: 'My email',
       statusPageLink: 'https://tmpmail.c0despace.uk/',
@@ -109,9 +103,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'Imgbed',
       name: 'My Img Bed build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://img.c0despace.uk/',
       tooltip: 'My img bed',
       statusPageLink: 'https://img.c0despace.uk/',
@@ -123,9 +115,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'Fileshare',
       name: 'My File Share build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://file.c0despace.uk/',
       tooltip: 'My file share',
       statusPageLink: 'https://file.c0despace.uk/',
@@ -137,9 +127,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'git_proxy',
       name: 'My github proxy build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://git.c0despace.uk/',
       tooltip: 'My github proxy',
       statusPageLink: 'https://git.c0despace.uk/',
@@ -151,9 +139,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'libtv',
       name: 'My libtv build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://tv.c0despace.uk/',
       tooltip: 'My libtv',
       statusPageLink: 'https://tv.c0despace.uk/',
@@ -165,9 +151,7 @@ const workerConfig: WorkerConfig = {
     {
       id: 'docker_proxy',
       name: 'My docker proxy build on cloudflare',
-      // `method` should be `TCP_PING` for tcp monitors
-      method: 'POST',
-      // `target` should be `host:port` for tcp monitors
+      method: 'GET',
       target: 'https://docker.c0despace.uk/',
       tooltip: 'My docker proxy',
       statusPageLink: 'https://docker.c0despace.uk/',
