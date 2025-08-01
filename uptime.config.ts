@@ -65,18 +65,6 @@ const workerConfig: WorkerConfig = {
     //},
     // Example TCP Monitor
     {
-      id: 'GenimiAPI',
-      name: 'Genimi API Balance Monitor',
-      method: 'GET',
-      target: 'https://genimiapi.c0despace.uk',
-      tooltip: 'My Genimi-balance',
-      statusPageLink: 'https://genimiapi.c0despace.uk',
-      timeout: 5000,
-      headers: {
-        'User-Agent': 'Uptimeflare',
-      },
-    },
-    {
       id: 'Blog',
       name: 'My Blog build on Github',
       method: 'GET',
