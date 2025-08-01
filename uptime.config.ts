@@ -74,6 +74,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My Genimi-balance',
       statusPageLink: 'https://genimiapi.c0despace.uk',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'Blog',
@@ -85,6 +88,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My Blog',
       statusPageLink: 'https://zywj0han9.github.io/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'tmpMail',
@@ -96,6 +102,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My email',
       statusPageLink: 'https://tmpmail.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'Imgbed',
@@ -107,6 +116,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My img bed',
       statusPageLink: 'https://img.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'Fileshare',
@@ -118,6 +130,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My file share',
       statusPageLink: 'https://file.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'git_proxy',
@@ -129,6 +144,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My github proxy',
       statusPageLink: 'https://git.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'libtv',
@@ -140,6 +158,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My libtv',
       statusPageLink: 'https://tv.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
     {
       id: 'docker_proxy',
@@ -151,6 +172,9 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My docker proxy',
       statusPageLink: 'https://docker.c0despace.uk/',
       timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
     },
   ],
   notification: {
