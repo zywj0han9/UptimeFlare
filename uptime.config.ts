@@ -13,7 +13,7 @@ const pageConfig: PageConfig = {
   // If not specified, all monitors will be shown in a single list
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
   group: {
-    '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
+    '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv', 'aur'],
     '🔐 Private': ['GenimiAPI', 'Blog', 'tmpMail', 'Imgbed', 'Fileshare'],
   },
 }
@@ -143,6 +143,18 @@ const workerConfig: WorkerConfig = {
       target: 'https://docker.c0despace.uk/',
       tooltip: 'My docker proxy',
       statusPageLink: 'https://docker.c0despace.uk/',
+      timeout: 5000,
+      headers: {
+        'User-Agent': 'Uptimeflare',
+      },
+    },
+    {
+      id: 'aur',
+      name: 'arch aur',
+      method: 'GET',
+      target: 'https://aur.archlinux.org/rpc?v=5&type=info',
+      tooltip: 'Aur Archlinux',
+      statusPageLink: 'https://aur.archlinux.org',
       timeout: 5000,
       headers: {
         'User-Agent': 'Uptimeflare',
