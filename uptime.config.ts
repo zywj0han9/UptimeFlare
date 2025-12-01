@@ -154,7 +154,7 @@ const workerConfig: WorkerConfig = {
       method: 'GET',
       target: 'https://pdftools.c0despace.uk/',
       tooltip: 'My PDFtool',
-      statusPageLink: 'https://pdftool.c0despace.uk/',
+      statusPageLink: 'https://pdftools.c0despace.uk/',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
