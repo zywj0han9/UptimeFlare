@@ -152,7 +152,7 @@ const workerConfig: WorkerConfig = {
       id: 'PDFtool',
       name: 'My PDFtool',
       method: 'GET',
-      target: 'https://pdftool.c0despace.uk/',
+      target: 'https://pdftools.c0despace.uk/',
       tooltip: 'My PDFtool',
       statusPageLink: 'https://pdftool.c0despace.uk/',
       timeout: 5000,
