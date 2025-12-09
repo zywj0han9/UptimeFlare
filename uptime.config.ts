@@ -188,9 +188,9 @@ const workerConfig: WorkerConfig = {
       id: 'Download',
       name: 'My AriaNG Dashboard',
       method: 'GET',
-      target: 'https://downloads.c0despace.uk/',
+      target: 'https://download.c0despace.uk/',
       tooltip: 'My AriaNG Dashboard',
-      statusPageLink: 'https://downloads.c0despace.uk/',
+      statusPageLink: 'https://download.c0despace.uk/',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
