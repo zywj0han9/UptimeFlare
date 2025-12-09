@@ -14,7 +14,7 @@ const pageConfig: PageConfig = {
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
   group: {
     '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
-    '🔐 Private': ['GenimiAPI', 'Blog-github', 'tmpMail', 'Imgbed', 'Bloug-vps','FreshRSS', 'Rsshub', 'Dashboard', 'n8n', 'PDFtool'],
+    '🔐 Private': ['GenimiAPI', 'Blog-github', 'tmpMail', 'Imgbed', 'Bloug-vps','FreshRSS', 'Rsshub', 'Dashboard', 'n8n', 'PDFtool', 'Book', 'Jellyfin', 'Library', '3X-UI', 'Download', 'dpanel', 'GPTLoad', 'Music', 'Siyuan', 'FileBrower', 'FBOracle'],
   },
 }
 
@@ -233,7 +233,7 @@ const workerConfig: WorkerConfig = {
       },
     },
     {
-      id: 'Siyuan Note',
+      id: 'Siyuan',
       name: 'My Siyuan Note',
       method: 'GET',
       target: 'https://note.c0despace.uk/',
