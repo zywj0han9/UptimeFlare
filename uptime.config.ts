@@ -16,8 +16,6 @@ const pageConfig: PageConfig = {
     '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
     '🔐 Private': ['GenimiAPI', 'Blog-github', 'tmpMail', 'Imgbed', 'Bloug-vps','FreshRSS', 'Rsshub', 'Dashboard', 'n8n', 'PDFtool', 'Book', 'Jellyfin', 'Library', '3X-UI', 'Download', 'dpanel', 'GPTLoad', 'Music', 'Siyuan', 'FileBrower', 'FBOracle'],
   },
-  kvHistoryDays: 30,
-  
 }
 
 const workerConfig: WorkerConfig = {
