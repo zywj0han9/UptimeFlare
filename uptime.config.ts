@@ -16,6 +16,8 @@ const pageConfig: PageConfig = {
     '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
     '🔐 Private': ['GenimiAPI', 'Blog-github', 'tmpMail', 'Imgbed', 'Bloug-vps','FreshRSS', 'Rsshub', 'Dashboard', 'n8n', 'PDFtool', 'Book', 'Jellyfin', 'Library', '3X-UI', 'Download', 'dpanel', 'GPTLoad', 'Music', 'Siyuan', 'FileBrower', 'FBOracle'],
   },
+  kvHistoryDays: 30,
+  
 }
 
 const workerConfig: WorkerConfig = {
@@ -238,7 +240,7 @@ const workerConfig: WorkerConfig = {
       method: 'GET',
       target: 'https://note.c0despace.uk/',
       tooltip: 'My Siyuan Note',
-      statusPageLink: 'https://note.c0despace.uk/',
+      statusPageLink: 'https://note.c0despace.uk/api/system/version',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
