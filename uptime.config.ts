@@ -236,9 +236,9 @@ const workerConfig: WorkerConfig = {
       id: 'Siyuan',
       name: 'My Siyuan Note',
       method: 'GET',
-      target: 'https://note.c0despace.uk/',
+      target: 'https://note.c0despace.uk/api/system/version',
       tooltip: 'My Siyuan Note',
-      statusPageLink: 'https://note.c0despace.uk/api/system/version',
+      statusPageLink: 'https://note.c0despace.uk',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
