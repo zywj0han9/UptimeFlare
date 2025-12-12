@@ -176,9 +176,9 @@ const workerConfig: WorkerConfig = {
       id: '3X-UI',
       name: 'My 3X-UI Dashboard',
       method: 'GET',
-      target: 'https://xui.c0despace.uk/',
+      target: 'https://xui.c0despace.uk/PNyPyqGkON9HEaqw33',
       tooltip: 'My 3X-UI Dashboard',
-      statusPageLink: 'https://xui.c0despace.uk/',
+      statusPageLink: 'https://xui.c0despace.uk/PNyPyqGkON9HEaqw33',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
