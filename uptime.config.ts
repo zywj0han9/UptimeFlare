@@ -78,7 +78,7 @@ const workerConfig: WorkerConfig = {
     },
      {
       id: 'Blog-vps',
-      name: 'My Blog build on Github',
+      name: 'My Blog build on Wordpress',
       method: 'GET',
       target: 'https://blog.c0despace.uk/',
       tooltip: 'My Blog',
@@ -189,7 +189,7 @@ const workerConfig: WorkerConfig = {
       name: 'My AI Gateway',
       method: 'GET',
       target: 'https://aiapi.c0despace.uk/',
-      tooltip: 'My GPTLoad',
+      tooltip: 'My NewAPI',
       statusPageLink: 'https://aiapi.c0despace.uk/',
       timeout: 5000,
       headers: {
