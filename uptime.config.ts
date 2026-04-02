@@ -13,8 +13,8 @@ const pageConfig: PageConfig = {
   // If not specified, all monitors will be shown in a single list
   // If specified, monitors will be grouped and ordered, not-listed monitors will be invisble (but still monitored)
   group: {
-    '🌐 Public': ['git_proxy', 'docker_proxy', 'libtv'],
-    '🔐 Private': ['GenimiAPI', 'Blog-github', 'tmpMail', 'Imgbed', 'Bloug-vps','FreshRSS', 'Rsshub', 'Dashboard', 'n8n', 'PDFtool', 'Book', 'Jellyfin', 'Library', '3X-UI', 'Download', 'dpanel', 'GPTLoad', 'Music', 'Siyuan', 'FileBrower', 'FBOracle'],
+    '🌐 Public': ['git_proxy'],
+    '🔐 Private': ['Blog-github', 'tmpMail', 'Imgbed', 'Blog-vps','FreshRSS', 'Rsshub', 'Dashboard','Library', '3X-UI', 'Download', 'dpanel', 'AIAPI', 'Music', 'Siyuan'],
   },
 }
 
@@ -137,30 +137,6 @@ const workerConfig: WorkerConfig = {
       },
     },
     {
-      id: 'Jellyfin',
-      name: 'My Jellyfin',
-      method: 'GET',
-      target: 'https://jellyfin.c0despace.uk/',
-      tooltip: 'My Jellyfin',
-      statusPageLink: 'https://jellyfin.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'Book',
-      name: 'My Book List',
-      method: 'GET',
-      target: 'https://book.c0despace.uk/',
-      tooltip: 'My Book List',
-      statusPageLink: 'https://book.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
       id: 'Library',
       name: 'My Book Library',
       method: 'GET',
@@ -176,9 +152,9 @@ const workerConfig: WorkerConfig = {
       id: '3X-UI',
       name: 'My 3X-UI Dashboard',
       method: 'GET',
-      target: 'https://xui.c0despace.uk/PNyPyqGkON9HEaqw33',
+      target: 'https://xui.c0despace.uk/e4TINsojWBQqBrBiTT/',
       tooltip: 'My 3X-UI Dashboard',
-      statusPageLink: 'https://xui.c0despace.uk/PNyPyqGkON9HEaqw33',
+      statusPageLink: 'https://xui.c0despace.uk/e4TINsojWBQqBrBiTT/',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
@@ -209,12 +185,12 @@ const workerConfig: WorkerConfig = {
       },
     },
     {
-      id: 'GPTLoad',
-      name: 'My GPTLoad',
+      id: 'AIAPI',
+      name: 'My AI Gateway',
       method: 'GET',
-      target: 'https://gptload.c0despace.uk/',
+      target: 'https://aiapi.c0despace.uk/',
       tooltip: 'My GPTLoad',
-      statusPageLink: 'https://gptload.c0despace.uk/',
+      statusPageLink: 'https://aiapi.c0despace.uk/',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
@@ -236,33 +212,9 @@ const workerConfig: WorkerConfig = {
       id: 'Siyuan',
       name: 'My Siyuan Note',
       method: 'GET',
-      target: 'https://note.c0despace.uk/api/system/version',
+      target: 'https://siyuan.c0despace.uk/api/system/version',
       tooltip: 'My Siyuan Note',
       statusPageLink: 'https://note.c0despace.uk',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'FileBrower',
-      name: 'My File Brower',
-      method: 'GET',
-      target: 'https://fb.c0despace.uk/',
-      tooltip: 'My File Brower',
-      statusPageLink: 'https://fb.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'FBOracle',
-      name: 'My File Brower Oracle',
-      method: 'GET',
-      target: 'https://fboracle.c0despace.uk/',
-      tooltip: 'My File Brower Oracle',
-      statusPageLink: 'https://fboracle.c0despace.uk/',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
@@ -281,72 +233,12 @@ const workerConfig: WorkerConfig = {
       },
     },
     {
-      id: 'PDFtool',
-      name: 'My PDFtool',
-      method: 'GET',
-      target: 'https://pdftools.c0despace.uk/',
-      tooltip: 'My PDFtool',
-      statusPageLink: 'https://pdftools.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'n8n',
-      name: 'My n8n',
-      method: 'GET',
-      target: 'https://n8n.c0despace.uk/',
-      tooltip: 'My n8n',
-      statusPageLink: 'https://n8n.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
       id: 'git_proxy',
       name: 'My github proxy build on cloudflare',
       method: 'GET',
       target: 'https://git.c0despace.uk/',
       tooltip: 'My github proxy',
       statusPageLink: 'https://git.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'libtv',
-      name: 'My libtv build on cloudflare',
-      method: 'GET',
-      target: 'https://tv.c0despace.uk/',
-      tooltip: 'My libtv',
-      statusPageLink: 'https://tv.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'docker_proxy',
-      name: 'My docker proxy build on cloudflare',
-      method: 'GET',
-      target: 'https://docker.c0despace.uk/',
-      tooltip: 'My docker proxy',
-      statusPageLink: 'https://docker.c0despace.uk/',
-      timeout: 5000,
-      headers: {
-        'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
-      },
-    },
-    {
-      id: 'aur',
-      name: 'arch aur',
-      method: 'GET',
-      target: 'https://aur.archlinux.org/rpc?v=5&type=info',
-      tooltip: 'Aur Archlinux',
-      statusPageLink: 'https://aur.archlinux.org',
       timeout: 5000,
       headers: {
         'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb',
