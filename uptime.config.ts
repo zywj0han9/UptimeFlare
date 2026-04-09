@@ -20,7 +20,7 @@ const pageConfig: PageConfig = {
       'Dashboard', 'Library',
       '3X-UI', 'Download',
       'dpanel', 'AIAPI',
-      'Music', 'Siyuan', 'Trilium',
+      'Music', 'Siyuan', 'Trilium','BookMark','Book','Certimate','OpenList','Openlist-home',
     ],
   },
 }
