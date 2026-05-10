@@ -42,7 +42,7 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My GitHub Proxy',
       statusPageLink: 'https://git.c0despace.uk/',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
 
     // ── Private ───────────────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My Blog',
       statusPageLink: 'https://zywj0han9.github.io/',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Blog-vps',
@@ -64,7 +64,7 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My Blog',
       statusPageLink: 'https://blog.c0despace.uk/',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'tmpMail',
@@ -73,7 +73,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://tmpmail.c0despace.uk/',
       tooltip: 'My Temp Mail',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Imgbed',
@@ -82,7 +82,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://img.c0despace.uk/',
       tooltip: 'My Image Bed',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'FreshRSS',
@@ -91,7 +91,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://rss.c0despace.uk/',
       tooltip: 'My FreshRSS',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Rsshub',
@@ -100,7 +100,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://rsshub.c0despace.uk/',
       tooltip: 'My RSSHub',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Dashboard',
@@ -109,7 +109,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://dashboard.c0despace.uk/',
       tooltip: 'My Dashboard',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Library',
@@ -118,7 +118,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://lib.c0despace.uk/',
       tooltip: 'My Book Library',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: '3X-UI',
@@ -127,7 +127,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://xui.c0despace.uk/e4TINsojWBQqBrBiTT/',
       tooltip: 'My 3X-UI Dashboard',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Download',
@@ -136,7 +136,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://download.c0despace.uk/',
       tooltip: 'My AriaNG Dashboard',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'dpanel',
@@ -145,7 +145,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://dpanel.c0despace.uk/',
       tooltip: 'My DPanel',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'AIAPI',
@@ -154,7 +154,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://aiapi.c0despace.uk/',
       tooltip: 'My AI Gateway',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Music',
@@ -162,9 +162,8 @@ const workerConfig: WorkerConfig = {
       method: 'GET',
       target: 'https://music.c0despace.uk/',
       tooltip: 'My Music',
-      statusPageLink: 'https://music.c0despace.uk/',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Siyuan',
@@ -173,7 +172,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://siyuan.c0despace.uk/api/system/version',
       tooltip: 'My Siyuan Note',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Trilium',
@@ -182,7 +181,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://trilium.c0despace.uk',
       tooltip: 'My Trilium Note',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'BookMark',
@@ -191,7 +190,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://bookmark.c0despace.uk',
       tooltip: 'My BookMark',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Certimate',
@@ -200,7 +199,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://certimate.c0despace.uk',
       tooltip: 'My Certimate',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'OpenList',
@@ -209,7 +208,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://openlist.c0despace.uk',
       tooltip: 'My OpenList',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
     {
       id: 'Openlist-home',
@@ -218,7 +217,7 @@ const workerConfig: WorkerConfig = {
       target: 'https://alist.c0despace.uk',
       tooltip: 'My Openlist Home',
       timeout: 5000,
-      headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
+      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'ZM7%zpEuKa19OG^q6rLwOQ$GU9*EuZo7J18Pe%!6'  },
     },
   ],
 
