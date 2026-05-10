@@ -2,13 +2,14 @@ import Head from 'next/head'
 
 import { Inter } from 'next/font/google'
 import { MaintenanceConfig, MonitorTarget } from '@/types/config'
-import { maintenances, pageConfig, workerConfig } from '@/uptime.config'
+import { maintenances, pageConfig } from '@/uptime.config'
 import Header from '@/components/Header'
 import { Box, Button, Center, Container, Group, Select } from '@mantine/core'
 import Footer from '@/components/Footer'
 import { useEffect, useState } from 'react'
 import MaintenanceAlert from '@/components/MaintenanceAlert'
 import NoIncidentsAlert from '@/components/NoIncidents'
+import { useTranslation } from 'react-i18next'
 
 export const runtime = 'experimental-edge'
 const inter = Inter({ subsets: ['latin'] })
@@ -24,7 +25,8 @@ function getSelectedMonth() {
 
 function filterIncidentsByMonth(
   incidents: MaintenanceConfig[],
-  monthStr: string
+  monthStr: string,
+  monitors: MonitorTarget[]
 ): (Omit<MaintenanceConfig, 'monitors'> & { monitors: MonitorTarget[] })[] {
   return incidents
     .filter((incident) => {
@@ -34,7 +36,7 @@ function filterIncidentsByMonth(
     })
     .map((e) => ({
       ...e,
-      monitors: (e.monitors || []).map((e) => workerConfig.monitors.find((mon) => mon.id === e)!),
+      monitors: (e.monitors || []).map((e) => monitors.find((mon) => mon.id === e)!),
     }))
     .sort((a, b) => (new Date(a.start) > new Date(b.start) ? -1 : 1))
 }
@@ -52,7 +54,8 @@ function getPrevNextMonth(monthStr: string) {
   }
 }
 
-export default function IncidentsPage() {
+export default function IncidentsPage({ monitors }: { monitors: MonitorTarget[] }) {
+  const { t } = useTranslation('common')
   const [selectedMonitor, setSelectedMonitor] = useState<string | null>('')
   const [selectedMonth, setSelectedMonth] = useState(getSelectedMonth())
 
@@ -62,7 +65,7 @@ export default function IncidentsPage() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  const filteredIncidents = filterIncidentsByMonth(maintenances, selectedMonth)
+  const filteredIncidents = filterIncidentsByMonth(maintenances, selectedMonth, monitors)
   const monitorFilteredIncidents = selectedMonitor
     ? filteredIncidents.filter((i) => i.monitors.find((e) => e.id === selectedMonitor))
     : filteredIncidents
@@ -70,8 +73,8 @@ export default function IncidentsPage() {
   const { prev, next } = getPrevNextMonth(selectedMonth)
 
   const monitorOptions = [
-    { value: '', label: 'All' },
-    ...workerConfig.monitors.map((monitor) => ({
+    { value: '', label: t('All') },
+    ...monitors.map((monitor) => ({
       value: monitor.id,
       label: monitor.name,
     })),
@@ -94,7 +97,7 @@ export default function IncidentsPage() {
           <Container size="md" style={{ width: '100%' }}>
             <Group justify="end" mb="md">
               <Select
-                placeholder="Select monitor"
+                placeholder={t('Select monitor')}
                 data={monitorOptions}
                 value={selectedMonitor}
                 onChange={setSelectedMonitor}
@@ -113,13 +116,13 @@ export default function IncidentsPage() {
             </Box>
             <Group justify="space-between" mt="md">
               <Button variant="default" onClick={() => (window.location.hash = prev)}>
-                ← Backwards
+                {t('Backwards')}
               </Button>
               <Box style={{ alignSelf: 'center', fontWeight: 500, fontSize: 18 }}>
                 {selectedMonth}
               </Box>
               <Button variant="default" onClick={() => (window.location.hash = next)}>
-                Forward →
+                {t('Forward')}
               </Button>
             </Group>
           </Container>
@@ -128,4 +131,14 @@ export default function IncidentsPage() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const { workerConfig } = await import('@/uptime.config')
+  // Only present these values to client
+  const monitors: MonitorTarget[] = workerConfig.monitors.map((monitor) => ({
+    id: monitor.id,
+    name: monitor.name,
+  })) as MonitorTarget[]
+  return { props: { monitors } }
 }

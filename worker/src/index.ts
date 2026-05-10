@@ -1,12 +1,14 @@
 import { DurableObject } from 'cloudflare:workers'
-import { MonitorState, MonitorTarget } from '../../types/config'
-import { maintenances, workerConfig } from '../../uptime.config'
-import { getStatus, getStatusWithGlobalPing } from './monitor'
-import { formatStatusChangeNotification, getWorkerLocation, webhookNotify } from './util'
+import { MonitorTarget } from '../../types/config'
+import { workerConfig } from '../../uptime.config'
+import { doMonitor, getStatus } from './monitor'
+import { formatAndNotify, getWorkerLocation } from './util'
+import { CompactedMonitorStateWrapper, getFromStore, setToStore } from './store'
+import pLimit from 'p-limit'
 
 export interface Env {
-  UPTIMEFLARE_STATE: KVNamespace
   REMOTE_CHECKER_DO: DurableObjectNamespace<RemoteChecker>
+  UPTIMEFLARE_D1: D1Database
 }
 
 const Worker = {
@@ -14,149 +16,58 @@ const Worker = {
     const workerLocation = (await getWorkerLocation()) || 'ERROR'
     console.log(`Running scheduled event on ${workerLocation}...`)
 
-    // Auxiliary function to format notification and send it via webhook
-    let formatAndNotify = async (
-      monitor: MonitorTarget,
-      isUp: boolean,
-      timeIncidentStart: number,
-      timeNow: number,
-      reason: string
-    ) => {
-      // Skip notification if monitor is in the skip list
-      const skipList = workerConfig.notification?.skipNotificationIds
-      if (skipList && skipList.includes(monitor.id)) {
-        console.log(
-          `Skipping notification for ${monitor.name} (${monitor.id} in skipNotificationIds)`
-        )
-        return
-      }
-
-      // Skip notification if monitor is in maintenance
-      const maintenanceList = maintenances
-        .filter(
-          (m) =>
-            new Date(timeNow * 1000) >= new Date(m.start) &&
-            (!m.end || new Date(timeNow * 1000) <= new Date(m.end))
-        )
-        .map((e) => e.monitors || [])
-        .flat()
-
-      if (maintenanceList.includes(monitor.id)) {
-        console.log(`Skipping notification for ${monitor.name} (in maintenance)`)
-        return
-      }
-
-      if (workerConfig.notification?.webhook) {
-        const notification = formatStatusChangeNotification(
-          monitor,
-          isUp,
-          timeIncidentStart,
-          timeNow,
-          reason,
-          workerConfig.notification?.timeZone ?? 'Etc/GMT'
-        )
-        await webhookNotify(workerConfig.notification.webhook, notification)
-      } else {
-        console.log(`Webhook not set, skipping notification for ${monitor.name}`)
-      }
-    }
-
-    // Read state, set init state if it doesn't exist
-    let state =
-      ((await env.UPTIMEFLARE_STATE.get('state', {
-        type: 'json',
-      })) as unknown as MonitorState) ||
-      ({
-        version: 1,
-        lastUpdate: 0,
-        overallUp: 0,
-        overallDown: 0,
-        incident: {},
-        latency: {},
-      } as MonitorState)
-    state.overallDown = 0
-    state.overallUp = 0
+    // Create a wrapped MonitorState from stored compacted state
+    const state = new CompactedMonitorStateWrapper(await getFromStore(env, 'state'))
+    state.data.overallDown = 0
+    state.data.overallUp = 0
 
     let statusChanged = false
     const currentTimeSecond = Math.round(Date.now() / 1000)
 
-    // Check each monitor
-    // TODO: concurrent status check
+    // Parallel check multiple monitors
+    // Max concurrent connection is 6 limited by Cloudflare Workers, we use 5 here to be safe
+    type CheckResult = { id: string; location: string; status: { ping: number; up: boolean; err: string } }
+    let checkQueue: Promise<CheckResult>[] = []
+    let checkResult: Record<string, CheckResult> = {};
+    const limit = pLimit(5);
     for (const monitor of workerConfig.monitors) {
-      console.log(`[${workerLocation}] Checking ${monitor.name}...`)
+      checkQueue.push(limit(() => doMonitor(monitor, workerLocation, env)))
+    }
+    for (const result of await Promise.all(checkQueue)) {
+      checkResult[result.id] = result
+    }
+
+    // Update each monitor's state based on check results
+    for (const monitor of workerConfig.monitors) {
+      console.log(`Processing monitor result: ${monitor.name} (${monitor.id})`)
 
       let monitorStatusChanged = false
-      let checkLocation = workerLocation
-      let status
-
-      if (monitor.checkProxy) {
-        // Initiate a check using proxy (Geo-specific monitoring)
-        try {
-          console.log('Calling check proxy: ' + monitor.checkProxy)
-          let resp
-          if (monitor.checkProxy.startsWith('worker://')) {
-            const doLoc = monitor.checkProxy.replace('worker://', '')
-            const doId = env.REMOTE_CHECKER_DO.idFromName(doLoc)
-            const doStub = env.REMOTE_CHECKER_DO.get(doId, {
-              locationHint: doLoc as DurableObjectLocationHint,
-            })
-            resp = await doStub.getLocationAndStatus(monitor)
-            try {
-              // Kill the DO instance after use, to avoid extra resource usage
-              await doStub.kill()
-            } catch (err) {
-              // An error here is expected, ignore it
-            }
-          } else if (monitor.checkProxy.startsWith('globalping://')) {
-            resp = await getStatusWithGlobalPing(monitor)
-          } else {
-            resp = await (
-              await fetch(monitor.checkProxy, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(monitor),
-              })
-            ).json<{ location: string; status: { ping: number; up: boolean; err: string } }>()
-          }
-          checkLocation = resp.location
-          status = resp.status
-        } catch (err) {
-          console.log('Error calling proxy: ' + err)
-          if (monitor.checkProxyFallback) {
-            console.log('Falling back to local check...')
-            status = await getStatus(monitor)
-          } else {
-            status = { ping: 0, up: false, err: 'Unknown check proxy error' }
-          }
-        }
-      } else {
-        // Initiate a check from the current location
-        status = await getStatus(monitor)
-      }
-
-      // const status = await getStatus(monitor)
-      const currentTimeSecond = Math.round(Date.now() / 1000)
+      const { location: checkLocation, status } = checkResult[monitor.id]
 
       // Update counters
-      status.up ? state.overallUp++ : state.overallDown++
+      status.up ? state.data.overallUp++ : state.data.overallDown++
 
       // Update incidents
       // Create a dummy incident to store the start time of the monitoring and simplify logic
-      state.incident[monitor.id] = state.incident[monitor.id] || [
-        {
+      if (state.incidentLen(monitor.id) === 0) {
+        state.appendIncident(monitor.id, {
           start: [currentTimeSecond],
           end: currentTimeSecond,
           error: ['dummy'],
-        },
-      ]
-      // Then lastIncident here must not be undefined
-      let lastIncident = state.incident[monitor.id].slice(-1)[0]
+        })
+      }
+
+      // Then lastIncident here must not be null
+      let lastIncident = state.getIncident(monitor.id, state.incidentLen(monitor.id) - 1)
 
       if (status.up) {
         // Current status is up
         // close existing incident if any
-        if (lastIncident.end === undefined) {
+        if (lastIncident.end === null) {
           lastIncident.end = currentTimeSecond
+          // write back the modified last incident
+          state.setIncident(monitor.id, state.incidentLen(monitor.id) - 1, lastIncident)
+
           monitorStatusChanged = true
           try {
             if (
@@ -190,24 +101,24 @@ const Worker = {
       } else {
         // Current status is down
         // open new incident if not already open
-        if (lastIncident.end !== undefined) {
-          state.incident[monitor.id].push({
+        if (lastIncident.end !== null) {
+          state.appendIncident(monitor.id, {
             start: [currentTimeSecond],
-            end: undefined,
+            end: null,
             error: [status.err],
           })
           monitorStatusChanged = true
-        } else if (
-          lastIncident.end === undefined &&
-          lastIncident.error.slice(-1)[0] !== status.err
-        ) {
+        } else if (lastIncident.end === null && lastIncident.error.slice(-1)[0] !== status.err) {
           // append if the error message changes
           lastIncident.start.push(currentTimeSecond)
           lastIncident.error.push(status.err)
+
+          // write back the modified last incident
+          state.setIncident(monitor.id, state.incidentLen(monitor.id) - 1, lastIncident)
           monitorStatusChanged = true
         }
 
-        const currentIncident = state.incident[monitor.id].slice(-1)[0]
+        const currentIncident = state.getIncident(monitor.id, state.incidentLen(monitor.id) - 1)
         try {
           if (
             // monitor status changed AND...
@@ -284,63 +195,55 @@ const Worker = {
       }
 
       // append to latency data
-      let latencyLists = state.latency[monitor.id] || {
-        recent: [],
-      }
-      latencyLists.all = []
-
-      const record = {
+      state.appendLatency(monitor.id, {
         loc: checkLocation,
         ping: status.ping,
         time: currentTimeSecond,
-      }
-      latencyLists.recent.push(record)
+      })
 
       // discard old data
-      while (latencyLists.recent[0]?.time < currentTimeSecond - 12 * 60 * 60) {
-        latencyLists.recent.shift()
+      while (state.getFirstLatency(monitor.id).time < currentTimeSecond - 12 * 60 * 60) {
+        state.unshiftLatency(monitor.id)
       }
-      state.latency[monitor.id] = latencyLists
 
       // discard old incidents
-      let incidentList = state.incident[monitor.id]
       while (
-        incidentList.length > 0 &&
-        incidentList[0].end &&
-        incidentList[0].end < currentTimeSecond - 90 * 24 * 60 * 60
+        state.incidentLen(monitor.id) > 0 &&
+        state.getIncident(monitor.id, 0).end &&
+        state.getIncident(monitor.id, 0).end! < currentTimeSecond - 90 * 24 * 60 * 60
       ) {
-        incidentList.shift()
+        state.shiftIncident(monitor.id)
       }
 
       if (
-        incidentList.length == 0 ||
-        (incidentList[0].start[0] > currentTimeSecond - 90 * 24 * 60 * 60 &&
-          incidentList[0].error[0] != 'dummy')
+        state.incidentLen(monitor.id) === 0 ||
+        (state.getIncident(monitor.id, 0).start[0] > currentTimeSecond - 90 * 24 * 60 * 60 &&
+          state.getIncident(monitor.id, 0).error[0] != 'dummy')
       ) {
         // put the dummy incident back
-        incidentList.unshift({
+        state.unshiftIncident(monitor.id, {
           start: [currentTimeSecond - 90 * 24 * 60 * 60],
           end: currentTimeSecond - 90 * 24 * 60 * 60,
           error: ['dummy'],
         })
       }
-      state.incident[monitor.id] = incidentList
 
       statusChanged ||= monitorStatusChanged
     }
 
     console.log(
-      `statusChanged: ${statusChanged}, lastUpdate: ${state.lastUpdate}, currentTime: ${currentTimeSecond}`
+      `statusChanged: ${statusChanged}, lastUpdate: ${state.data.lastUpdate}, currentTime: ${currentTimeSecond}`
     )
     // Update state
-    // Allow for a cooldown period before writing to KV
+    // Allow for a cooldown period before writing to storage
     if (
       statusChanged ||
-      currentTimeSecond - state.lastUpdate >= (workerConfig.kvWriteCooldownMinutes ?? 3) * 60 - 10 // Allow for 10 seconds of clock drift
+      currentTimeSecond - state.data.lastUpdate >=
+        (workerConfig.kvWriteCooldownMinutes ?? 3) * 60 - 10 // Allow for 10 seconds of clock drift
     ) {
       console.log('Updating state...')
-      state.lastUpdate = currentTimeSecond
-      await env.UPTIMEFLARE_STATE.put('state', JSON.stringify(state))
+      state.data.lastUpdate = currentTimeSecond
+      await setToStore(env, 'state', state.getCompactedStateStr())
     } else {
       console.log('Skipping state update due to cooldown period.')
     }
