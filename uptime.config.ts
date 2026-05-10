@@ -162,7 +162,6 @@ const workerConfig: WorkerConfig = {
       method: 'GET',
       target: 'https://music.c0despace.uk/',
       tooltip: 'My Music',
-      statusPageLink: 'https://music.c0despace.uk/',
       timeout: 5000,
       headers: { 'User-Agent': '9*4r%lYcz!DU*f%C4#Ea$%lyb' },
     },
