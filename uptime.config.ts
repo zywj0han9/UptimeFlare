@@ -20,7 +20,7 @@ const pageConfig: PageConfig = {
       'Dashboard', 'Library',
       '3X-UI', 'Download',
       'dpanel', 'AIAPI',
-      'Music', 'Siyuan', 'Trilium','BookMark', 'Certimate','OpenList','Openlist-home', 'Firecrawl', 'Search'
+      'Music','BookMark', 'Certimate','OpenList','Openlist-home', 'Search'
     ],
   },
 }
@@ -163,24 +163,6 @@ const workerConfig: WorkerConfig = {
       headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'Ihy*Y*yrviT5^ScK%*#VRe*mATnX70@Y3&5WwHpN'  },
     },
     {
-      id: 'Siyuan',
-      name: 'My Siyuan Note',
-      method: 'GET',
-      target: 'https://siyuan.c0despace.uk/api/system/version',
-      tooltip: 'My Siyuan Note',
-      timeout: 5000,
-      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'Ihy*Y*yrviT5^ScK%*#VRe*mATnX70@Y3&5WwHpN'  },
-    },
-    {
-      id: 'Trilium',
-      name: 'My Trilium Note',
-      method: 'GET',
-      target: 'https://trilium.c0despace.uk',
-      tooltip: 'My Trilium Note',
-      timeout: 5000,
-      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'Ihy*Y*yrviT5^ScK%*#VRe*mATnX70@Y3&5WwHpN'  },
-    },
-    {
       id: 'BookMark',
       name: 'My BookMark',
       method: 'GET',
@@ -215,15 +197,6 @@ const workerConfig: WorkerConfig = {
       tooltip: 'My Openlist Home',
       timeout: 5000,
       headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'Ihy*Y*yrviT5^ScK%*#VRe*mATnX70@Y3&5WwHpN'  },
-    },
-    {
-      id: 'Firecrawl',
-      name: 'My FireCrawl',
-      method: 'GET',
-      target: 'https://firecrawl.c0despace.uk/v0/health/liveness',
-      tooltip: 'My FireCrawl',
-      timeout: 5000,
-      headers: { 'User-Agent': 'UptimeFlare-Monitor', 'X-UptimeFlare-Monitor':  'Ihy*Y*yrviT5^ScK%*#VRe*mATnX70@Y3&5WwHpN', 'Authorization': 'EZhmxpWLc2Z3NsfcoQ2jcxSn4oXeUibJgLRJ3w4Ssz0IavGUTNWeKW0jnEEqguqNgRohxg1R6nVaGDBl0Q3ftRC1OGuDLrlhRU9MIf69vfelPYnSy9xd7ogQexobcqOv' },
     },
     {
       id: 'Search',
